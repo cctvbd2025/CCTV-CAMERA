@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CCTV Shop | সিসিটিভি ক্যামেরা</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #e8e8e8;
+      color: #333;
+    }
+    header {
+      background: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    form {
+      background: white;
+      margin: 20px auto;
+      padding: 15px;
+      border-radius: 8px;
+      max-width: 600px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    form input {
+      padding: 8px;
+      flex: 1 1 30%;
+      min-width: 150px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    form button {
+      padding: 10px 20px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      flex: 1 1 100%;
+      max-width: 200px;
+      align-self: center;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      background: #e8e8e8;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .product {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .product img {
+      max-width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .product h3 {
+      margin: 10px 0 5px;
+    }
+    .product p {
+      color: #444;
+      font-weight: bold;
+    }
+    .btn {
+      background: #007BFF;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>CCTV Shop | সিসিটিভি ক্যামেরা</h1>
+  <p>Best Quality CCTV Cameras at Affordable Prices | সেরা মানের সিসিটিভি ক্যামেরা</p>
+</header>
+
+<form id="productForm">
+  <input type="text" id="name" placeholder="পণ্যের নাম (বাংলা | English)" required />
+  <input type="url" id="image" placeholder="Image URL" required />
+  <input type="number" id="price" placeholder="দাম (৳)" required min="1" />
+  <button type="submit">Add Product | পণ্য যোগ করুন</button>
+</form>
+
+<section class="product-grid" id="productGrid">
+  <!-- Products will appear here -->
+</section>
+
+<script>
+  const productGrid = document.getElementById('productGrid');
+  const productForm = document.getElementById('productForm');
+
+  // Initial sample products
+  const products = [
+    {
+      name: 'HD Camera 1 | এইচডি ক্যামেরা ১',
+      image: 'https://via.placeholder.com/300x180',
+      price: 3500
+    },
+    {
+      name: 'Night Vision Camera | নাইট ভিশন ক্যামেরা',
+      image: 'https://via.placeholder.com/300x180',
+      price: 4500
+    },
+    {
+      name: 'WiFi IP Camera | ওয়াইফাই আইপি ক্যামেরা',
+      image: 'https://via.placeholder.com/300x180',
+      price: 5500
+    }
+  ];
+
+  function renderProducts() {
+    productGrid.innerHTML = '';
+    products.forEach(product => {
+      const div = document.createElement('div');
+      div.className = 'product';
+
+      div.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" />
+        <h3>${product.name}</h3>
+        <p>৳${product.price}</p>
+        <button class="btn">Order Now | অর্ডার করুন</button>
+      `;
+
+      productGrid.appendChild(div);
+    });
+  }
+
+  productForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const image = document.getElementById('image').value.trim();
+    const price = parseInt(document.getElementById('price').value);
+
+    if (name && image && price > 0) {
+      products.push({ name, image, price });
+      renderProducts();
+      productForm.reset();
+    } else {
+      alert('সঠিক তথ্য দিন দয়া করে');
+    }
+  });
+
+  renderProducts();
+</script>
+
+</body>
+</html>
